@@ -56,7 +56,7 @@ resource "aws_api_gateway_stage" "prod" {
   }
 }
 
-
+# Dont forget to update the api url in index.html
 
 output "api_url" {
   value = "${aws_api_gateway_stage.prod.invoke_url}/visitor"

@@ -1,203 +1,65 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- =========================
-       META / PAGE INFO
-  ========================== -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Resume</title>
 
-  <!-- =========================
-       GLOBAL STYLES
-  ========================== -->
   <style>
-    /* Base page styles */
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       margin: 0;
       background: #0b1220;
       color: #e7eaf0;
     }
-
-    .wrap {
-      max-width: 980px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: 40px;
-      letter-spacing: .2px;
-    }
-
+    .wrap { max-width: 980px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 40px; letter-spacing: .2px; }
     .sub { opacity: .85; }
     .muted { opacity: .8; }
-
-    a {
-      color: #8ab4ff;
-      text-decoration: none;
-    }
-
+    a { color: #8ab4ff; text-decoration: none; }
     a:hover { text-decoration: underline; }
-
     ul { margin: 10px 0 0 18px; }
-
-    /* =========================
-       HERO SECTION
-    ========================== */
-    .hero {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 20px;
-    }
-
-    .avatar {
-      height: 124px;
-      width: auto;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
-    }
-
-    /* Resume button */
-    .resume-button {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 8px 16px;
-      border-radius: 8px;
-      background-color: #3b82f6;
-      color: white;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
-    .resume-button:hover {
-      background-color: #2563eb;
-      text-decoration: none;
-    }
-
-    /* =========================
-       MAIN LAYOUT / CARDS
-    ========================== */
-    main {
-      padding: 28px 20px 60px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    @media (min-width: 900px) {
-      .grid {
-        grid-template-columns: 1.2fr .8fr;
-      }
-    }
-
-    .card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 14px;
-      padding: 18px;
-    }
-
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
-    }
-
-    /* =========================
-       SKILLS PILLS
-    ========================== */
-    .pill {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      margin: 6px 6px 0 0;
-      font-size: 13px;
-    }
-
-    /* =========================
-       SOCIAL BUTTONS
-    ========================== */
-    .social-links {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .social-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      color: #e7eaf0;
-      font-weight: 600;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .social-button:hover {
-      background: rgba(255,255,255,.12);
-      transform: translateY(-1px);
-      text-decoration: none;
-    }
-
-    .social-button svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    /* =========================
-       FOOTER
-    ========================== */
-    footer {
-      padding: 18px 20px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      opacity: .8;
-    }
+    .hero { display: flex; align-items: center; gap: 16px; padding: 20px; }
+    .avatar { height: 124px; width: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+    .resume-button { display: inline-block; margin-top: 8px; padding: 8px 16px; border-radius: 8px; background-color: #3b82f6; color: white; font-weight: bold; transition: background 0.2s; }
+    .resume-button:hover { background-color: #2563eb; text-decoration: none; }
+    main { padding: 28px 20px 60px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 900px) { .grid { grid-template-columns: 1.2fr .8fr; } }
+    .card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px; }
+    .card h2 { margin: 0 0 10px; font-size: 18px; }
+    .pill { display: inline-block; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); margin: 6px 6px 0 0; font-size: 13px; }
+    .social-links { display: flex; gap: 10px; margin-top: 10px; }
+    .social-button { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 8px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #e7eaf0; font-weight: 600; transition: background 0.2s, transform 0.1s; }
+    .social-button:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); text-decoration: none; }
+    .social-button svg { width: 18px; height: 18px; fill: currentColor; }
+    footer { padding: 18px 20px; border-top: 1px solid rgba(255,255,255,.08); opacity: .8; }
   </style>
 </head>
 
 <body>
 
-  <!-- =========================
-       HERO / HEADER CONTENT
-  ========================== -->
+  <!-- HERO / HEADER -->
   <div class="wrap">
     <div class="hero">
       <img class="avatar" src="headshot.jpeg" alt="Headshot of Elmoge Abukar" />
       <div>
         <h1>Elmoge Abukar</h1>
         <p class="sub">Cloud DevOps Engineer</p>
-        <a class="resume-button" href="resume.pdf" target="_blank">
-          Resume: Click Here
-        </a>
+        <a class="resume-button" href="resume4.pdf" target="_blank">Click Here: Resume</a>
       </div>
     </div>
   </div>
 
-  <!-- =========================
-       MAIN CONTENT
-  ========================== -->
+  <!-- MAIN CONTENT -->
   <main>
     <div class="wrap grid">
 
       <!-- LEFT COLUMN -->
       <section class="card">
         <h2>About</h2>
-        <p>
-          Cloud & DevOps engineer focused on AWS infrastructure, automation,
-          security best practices, and scalable cloud architectures.
-        </p>
+        <p>Cloud & DevOps engineer focused on AWS infrastructure, automation, security best practices, and scalable cloud architectures.</p>
 
         <h2 style="margin-top:16px;">Projects</h2>
         <ul>
@@ -223,73 +85,40 @@
         </div>
 
         <h2 style="margin-top:16px;">Contact</h2>
-
-        <p>
-          Email:
-          <a href="mailto:e5techmanagement@gmail.com">
-            e5techmanagement@gmail.com
-          </a>
-        </p>
+        <p>Email: <a href="mailto:e5techmanagement@gmail.com">e5techmanagement@gmail.com</a></p>
 
         <div class="social-links">
-          <!-- LinkedIn -->
           <a class="social-button" href="https://www.linkedin.com/in/eabukar" target="_blank">
-            <svg viewBox="0 0 24 24">
-              <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.1c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.77 2.65 4.77 6.1V24h-4v-7.6c0-1.8-.03-4.1-2.5-4.1-2.5 0-2.9 1.95-2.9 4V24H8V8z"/>
-            </svg>
             LinkedIn
           </a>
-
-          <!-- GitHub -->
           <a class="social-button" href="https://github.com/elnana93" target="_blank">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.11 3.29 9.44 7.86 10.97.57.1.78-.25.78-.55v-2.02c-3.2.7-3.87-1.54-3.87-1.54-.53-1.36-1.29-1.72-1.29-1.72-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.71 1.26 3.37.97.1-.75.4-1.26.72-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.2-3.1-.12-.3-.52-1.52.11-3.17 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.65.23 2.87.11 3.17.75.81 1.2 1.84 1.2 3.1 0 4.42-2.69 5.39-5.25 5.67.41.36.78 1.07.78 2.16v3.2c0 .3.2.66.79.55A11.52 11.52 0 0 0 23.5 12C23.5 5.74 18.27.5 12 .5z"/>
-            </svg>
             GitHub
           </a>
         </div>
-
-        <p class="muted" style="margin-top:14px;">
-          Tip: add a custom domain later with ACM (must be in us-east-1 for CloudFront).
-        </p>
+        <p class="muted" style="margin-top:14px;">Tip: add a custom domain later with ACM (must be in us-east-1 for CloudFront).</p>
       </aside>
 
     </div>
   </main>
 
-  <!-- =========================
-       FOOTER
-  ========================== -->
+  <!-- VISITOR COUNTER -->
+  <div style="font-size: 60px; font-weight: bold; margin: 20px 0;">
+    Visitors: <span id="counter">0</span>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
     <div class="wrap">
       © <span id="y"></span> Elmoge Abukar • Powered by CloudFront
     </div>
   </footer>
 
-  <!-- =========================
-       FOOTER SCRIPT
-  ========================== -->
+  <!-- FOOTER SCRIPTS -->
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
 
-</body>
-</html>
+    const apiUrl = "https://aa73hi7t6b.execute-api.us-west-2.amazonaws.com/prod/visitor";
 
-
-
-
-
-  <!-- =========================
-       API VISITOR COUNTER
-  ========================== -->
-  <div style="font-size: 60px; font-weight: bold; margin: 20px 0;">
-    Visitors: <span id="counter">0</span>
-  </div>
-  
-  <script>
-    const apiUrl = "https://x9v77nrsxi.execute-api.us-west-2.amazonaws.com/prod/visitor";
-  
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
@@ -300,4 +129,6 @@
         document.getElementById("counter").innerText = "N/A";
       });
   </script>
-  
+
+</body>
+</html>
