@@ -1,0 +1,45 @@
+# =========================
+# Node / JS / general
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Python / Lambda
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+*.egg-info/
+.env
+.env.* 
+*.log
+
+# =========================
+# Terraform
+# =========================
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.zip        # <-- ignores all zip files, including your lambda_function.zip
+
+# =========================
+# Editor / OS files
+# =========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# =========================
+# Misc
+# =========================
+*.bak
+*.tmp
+*.log
