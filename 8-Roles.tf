@@ -32,7 +32,7 @@ resource "aws_iam_policy" "github_deploy_policy" {
           "s3:ListBucket",
           "s3:GetBucketLocation"
         ],
-        Resource = "arn:${data.aws_partition.current.partition}:s3:::resume-site-3a6ab145"
+        Resource = aws_s3_bucket.site.arn
       },
       {
         Sid    = "S3ObjectRW",
@@ -42,7 +42,7 @@ resource "aws_iam_policy" "github_deploy_policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ],
-        Resource = "arn:${data.aws_partition.current.partition}:s3:::resume-site-3a6ab145/*"
+        Resource = "${aws_s3_bucket.site.arn}/*"
       },
       {
         Sid    = "CloudFrontInvalidate",
@@ -50,8 +50,58 @@ resource "aws_iam_policy" "github_deploy_policy" {
         Action = [
           "cloudfront:CreateInvalidation"
         ],
-        Resource = "arn:${data.aws_partition.current.partition}:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/E2UW3MA6QCO6BE"
+        Resource = aws_cloudfront_distribution.site.arn
+      }, 
+      #############################################
+      # Terraform backend permissions (S3 state)
+      # Backend:
+      # bucket = e5statefiles
+      # key    = resume-s3/terraform.tfstate
+      #############################################
+      {
+        Sid    = "TerraformStateListBucketScoped",
+        Effect = "Allow",
+        Action = [
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ],
+        Resource = "arn:${data.aws_partition.current.partition}:s3:::e5statefiles",
+        Condition = {
+          StringLike = {
+            "s3:prefix" = ["resume-s3/terraform.tfstate"]
+          }
+        }
+      },
+      {
+        Sid    = "TerraformStateReadExactObject",
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion"
+        ],
+        Resource = "arn:${data.aws_partition.current.partition}:s3:::e5statefiles/resume-s3/terraform.tfstate"
+      },
+
+
+
+
+      #############################################
+      # Terraform backend permissions (DynamoDB lock table)
+      # dynamodb_table = e5statefiles-locks
+      #############################################
+      {
+        Sid    = "TerraformStateDynamoDBLock",
+        Effect = "Allow",
+        Action = [
+          "dynamodb:DescribeTable",
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem"
+        ],
+        Resource = "arn:${data.aws_partition.current.partition}:dynamodb:us-west-2:${data.aws_caller_identity.current.account_id}:table/e5statefiles-locks"
       }
+
+      
     ]
   })
 }
