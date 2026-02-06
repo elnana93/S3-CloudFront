@@ -63,8 +63,6 @@ resource "aws_s3_bucket_versioning" "site" {
   }
 }
 
-
-
 # --- Bucket policy: allow ONLY this CloudFront distribution to read objects
 data "aws_iam_policy_document" "site_bucket_policy" {
   statement {
@@ -99,10 +97,6 @@ resource "aws_s3_bucket_policy" "site" {
 output "site_bucket_name" {
   value = aws_s3_bucket.site.bucket
 }
-
-
-
-
 
 # Upload HTML files automatically
 resource "aws_s3_object" "index" {

@@ -1,4 +1,4 @@
-name: Deploy to S3 + CloudFront
+name: Deploy to S3 + CloudFront (Resume Site)
 
 on:
   push:
@@ -16,10 +16,14 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    env:
+      # If your Terraform is in a subfolder, change this (ex: "./terraform")
+      TF_DIR: "."
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
@@ -27,12 +31,51 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-west-2
 
-      - name: Sync site folder to S3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        shell: bash
         run: |
-          aws s3 sync ./site s3://resume-site-3a6ab145 --delete
+          set -euo pipefail
+          cd "$TF_DIR"
+          terraform init -input=false
+
+      - name: Read Terraform outputs (S3 + CloudFront)
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$TF_DIR"
+
+          S3_BUCKET_NAME="$(terraform output -raw site_bucket_name)"
+          CF_DIST_ID="$(terraform output -raw cloudfront_distribution_id)"
+
+          if [ -z "$S3_BUCKET_NAME" ]; then
+            echo "Terraform output 'site_bucket_name' is empty or missing."
+            exit 1
+          fi
+
+          if [ -z "$CF_DIST_ID" ]; then
+            echo "Terraform output 'cloudfront_distribution_id' is empty or missing."
+            exit 1
+          fi
+
+          echo "S3_BUCKET_NAME=$S3_BUCKET_NAME" >> "$GITHUB_ENV"
+          echo "CF_DIST_ID=$CF_DIST_ID" >> "$GITHUB_ENV"
+
+      - name: Deploy site to S3
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws s3 sync ./site "s3://$S3_BUCKET_NAME" \
+            --delete \
+            --only-show-errors \
+            --exact-timestamps
 
       - name: Invalidate CloudFront
+        shell: bash
         run: |
+          set -euo pipefail
           aws cloudfront create-invalidation \
-            --distribution-id E2UW3MA6QCO6BE \
+            --distribution-id "$CF_DIST_ID" \
             --paths "/*"
