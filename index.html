@@ -59,33 +59,21 @@
       <!-- LEFT COLUMN -->
       <section class="card">
         <h2>About</h2>
-        <p>Cloud & DevOps engineer focused on AWS infrastructure, automation, security best practices, and scalable cloud architectures.</p>
+        <p>During the pandemic, I discovered cloud and started building consistently. Over the past 5–6 years, I’ve strengthened my AWS, GCP and Terraform skills and expanded into Python and AI to build secure, resilient, and efficient solutions.</p>
 
-        <h2 style="margin-top:16px;">Projects</h2>
+        <h2 style="margin-top:16px;">About this site</h2>
         <ul>
-          <li><strong>Private S3 + CloudFront Resume Site</strong> — OAC, HTTPS, blocked public access</li>
-          <li><strong>RDS + EC2 Lab</strong> — private subnets, Secrets Manager rotation</li>
-          <li><strong>Terraform Backend</strong> — S3 remote state + DynamoDB locking</li>
+          <li><strong>S3 + CloudFront (HTTPS/CDN):</strong> — with private origin (OAC + IAM) for secure delivery</li>
+          
+          <li><strong>Visitor counter:</strong> — API Gateway + Lambda, least-privilege roles + CloudWatch logs (WAF optional later)</li>
+          
         </ul>
       </section>
 
       <!-- RIGHT COLUMN -->
       <aside class="card">
-        <h2>Skills</h2>
-        <div>
-          <span class="pill">AWS</span>
-          <span class="pill">Terraform</span>
-          <span class="pill">S3</span>
-          <span class="pill">CloudFront</span>
-          <span class="pill">IAM</span>
-          <span class="pill">VPC</span>
-          <span class="pill">EC2</span>
-          <span class="pill">RDS</span>
-          <span class="pill">CloudWatch</span>
-        </div>
-
-        <h2 style="margin-top:16px;">Contact</h2>
-        <p>Email: <a href="mailto:e5techmanagement@gmail.com">e5techmanagement@gmail.com</a></p>
+        <h1 style="margin-top:16px;">Contact</h1>
+        <p>Email: <a href="mailto:abukar5150@gmail.com">abukar5150@gmail.com</a></p>
 
         <div class="social-links">
           <a class="social-button" href="https://www.linkedin.com/in/eabukar" target="_blank">
@@ -95,11 +83,19 @@
             GitHub
           </a>
         </div>
-        <p class="muted" style="margin-top:14px;">Tip: add a custom domain later with ACM (must be in us-east-1 for CloudFront).</p>
+        <p class="muted" style="margin-top:14px;">Route53 not needed at the moment.</p>
       </aside>
 
     </div>
   </main>
+
+
+  <!-- Market Chart -->
+<section class="card" style="grid-column: 1 / -1; margin-top: 18px;">
+  <h2 style="margin-top:0;">S&P 500 (SPY)</h2>
+  <div id="tv_chart" style="height:320px;"></div>
+</section>
+
 
   <!-- VISITOR COUNTER -->
   <div style="font-size: 60px; font-weight: bold; margin: 20px 0;">
@@ -117,7 +113,7 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    const apiUrl = "https://aa73hi7t6b.execute-api.us-west-2.amazonaws.com/prod/visitor";
+    const apiUrl = "https://68ge5sz7n7.execute-api.us-west-2.amazonaws.com/prod/visitor";
 
     fetch(apiUrl)
       .then(response => response.json())
@@ -129,6 +125,27 @@
         document.getElementById("counter").innerText = "N/A";
       });
   </script>
+
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+  window.addEventListener("load", function () {
+    new TradingView.widget({
+      container_id: "tv_chart",
+      width: "100%",
+      height: 320,
+      symbol: "AMEX:SPY",
+      interval: "60",
+      timezone: "Etc/UTC",
+      theme: "dark",
+      style: "1",
+      locale: "en",
+      hide_top_toolbar: true,
+      allow_symbol_change: false
+    });
+  });
+</script>
+
 
 </body>
 </html>
