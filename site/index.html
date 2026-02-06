@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elmoge Abukar | Cloud DevOps Engineer</title>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin: 0;
+      background: #0b1220;
+      color: #e7eaf0;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 40px; letter-spacing: .2px; }
+    .sub { opacity: .85; margin: 0; }
+    .muted { opacity: .8; }
+    a { color: #8ab4ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { margin: 10px 0 0 18px; }
+    .hero { display: flex; align-items: center; gap: 16px; padding: 20px; }
+    .avatar { height: 124px; width: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+    .resume-button { display: inline-block; margin-top: 10px; padding: 10px 16px; border-radius: 10px; background-color: #3b82f6; color: white; font-weight: 700; transition: background 0.2s; }
+    .resume-button:hover { background-color: #2563eb; text-decoration: none; }
+    main { padding: 28px 20px 40px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 900px) { .grid { grid-template-columns: 1.2fr .8fr; } }
+    .card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px; }
+    .card h2 { margin: 0 0 10px; font-size: 18px; }
+    .social-links { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .social-button { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #e7eaf0; font-weight: 650; transition: background 0.2s, transform 0.1s; }
+    .social-button:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); text-decoration: none; }
+    .counter-wrap { padding: 0 20px 20px; }
+    .counter { font-size: 60px; font-weight: 800; margin: 10px 0 0; }
+    footer { padding: 18px 20px; border-top: 1px solid rgba(255,255,255,.08); opacity: .8; }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO / HEADER -->
+  <div class="wrap">
+    <div class="hero">
+      <img class="avatar" src="headshot.jpeg" alt="Headshot of Elmoge Abukar" />
+      <div>
+        <h1>Elmoge Abukar</h1>
+        <p class="sub">Cloud DevOps Engineer</p>
+
+        <!-- NOTE: S3 keys are case-sensitive. This must match your file name exactly. -->
+        <a class="resume-button" href="Resume4.pdf" target="_blank" rel="noopener">Click Here: Resume</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="wrap grid">
+
+      <!-- LEFT COLUMN -->
+      <section class="card">
+        <h2>About</h2>
+        <p>
+          During the pandemic, I discovered cloud and started building consistently.
+          Over the past 5–6 years, I’ve strengthened my AWS, GCP and Terraform skills and expanded into Python and AI
+          to build secure, resilient, and efficient solutions.
+        </p>
+
+        <h2 style="margin-top:16px;">About this site</h2>
+        <ul>
+          <li><strong>S3 + CloudFront (HTTPS/CDN):</strong> private origin (OAC + IAM) for secure delivery</li>
+          <li><strong>Visitor counter:</strong> API Gateway + Lambda, least-privilege roles + CloudWatch logs (WAF optional later)</li>
+        </ul>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <aside class="card">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:abukar5150@gmail.com">abukar5150@gmail.com</a></p>
+
+        <div class="social-links">
+          <a class="social-button" href="https://www.linkedin.com/in/eabukar" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="social-button" href="https://github.com/elnana93" target="_blank" rel="noopener">GitHub</a>
+        </div>
+
+        <p class="muted" style="margin-top:14px;">Route53 not needed at the moment.</p>
+      </aside>
+
+    </div>
+
+    <!-- MARKET CHART (kept aligned with your layout) -->
+    <div class="wrap" style="margin-top: 18px;">
+      <section class="card">
+        <h2 style="margin-top:0;">S&P 500 (SPY)</h2>
+        <div id="tv_chart" style="height:320px;"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- VISITOR COUNTER -->
+  <div class="wrap counter-wrap">
+    <div class="counter">Visitors: <span id="counter">0</span></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      © <span id="y"></span> Elmoge Abukar • Powered by CloudFront
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Footer year
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Visitor Counter
+    const apiUrl = "https://68ge5sz7n7.execute-api.us-west-2.amazonaws.com/prod/visitor";
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("counter").innerText = data.visits;
+      })
+      .catch(error => {
+        console.error("Error fetching visitor count:", error);
+        document.getElementById("counter").innerText = "N/A";
+      });
+  </script>
+
+  <!-- TradingView Chart -->
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    window.addEventListener("load", function () {
+      new TradingView.widget({
+        container_id: "tv_chart",
+        width: "100%",
+        height: 320,
+        symbol: "AMEX:SPY",
+        interval: "60",
+        timezone: "Etc/UTC",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        hide_top_toolbar: true,
+        allow_symbol_change: false
+      });
+    });
+  </script>
+
+</body>
+</html>
