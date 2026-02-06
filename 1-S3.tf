@@ -106,18 +106,19 @@ output "site_bucket_name" {
 
 # Upload HTML files automatically
 resource "aws_s3_object" "index" {
-  bucket       = aws_s3_bucket.site.id # <-- change if your bucket is named differently
+  bucket       = aws_s3_bucket.site.bucket
   key          = "index.html"
-  source       = "${path.module}/index.html"
+  source       = "${path.module}/site/index.html"
   content_type = "text/html"
-  etag         = filemd5("${path.module}/index.html")
+  etag         = filemd5("${path.module}/site/index.html")
 }
 
 resource "aws_s3_object" "error" {
-  bucket       = aws_s3_bucket.site.id # <-- change if needed
+  bucket       = aws_s3_bucket.site.bucket
   key          = "error.html"
-  source       = "${path.module}/error.html"
+  source       = "${path.module}/site/error.html"
   content_type = "text/html"
-  etag         = filemd5("${path.module}/error.html")
+  etag         = filemd5("${path.module}/site/error.html")
 }
+
 
